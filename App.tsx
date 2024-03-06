@@ -1,8 +1,13 @@
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import SplashScreen from './src/pages/SplashScreen';
+import Router from './src/router/';
 
 const App = () => {
-  return <SplashScreen />;
+  return (
+    <NavigationContainer>
+      <Router />
+    </NavigationContainer>
+  );
 };
 
 export default App;
