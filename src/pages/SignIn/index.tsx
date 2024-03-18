@@ -2,7 +2,7 @@ import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Gap, PageHeader, TextInput} from '../../components';
 
-const SignIn = () => {
+const SignIn = ({navigation}) => {
   return (
     <ScrollView style={styles.container}>
       <PageHeader label="Sign In" />
@@ -22,6 +22,7 @@ const SignIn = () => {
           label="Create New Account"
           backgroundColor="#8D92A3"
           textColor="#FFFFFF"
+          onSubmit={() => navigation.navigate('SignUp')}
         />
       </View>
     </ScrollView>

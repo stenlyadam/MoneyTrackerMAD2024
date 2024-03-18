@@ -5,11 +5,13 @@ const Button = ({
   label,
   backgroundColor = '#02CF8E',
   textColor = '#020202',
+  onSubmit,
 }) => {
   return (
     <TouchableOpacity
       style={styles.container(backgroundColor)}
-      activeOpacity={0.7}>
+      activeOpacity={0.7}
+      onPress={onSubmit}>
       <Text style={styles.label(textColor)}>{label}</Text>
     </TouchableOpacity>
   );
