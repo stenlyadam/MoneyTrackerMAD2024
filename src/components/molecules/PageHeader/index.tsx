@@ -1,11 +1,14 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {BackButton} from '../../../assets/icon';
+import {Button} from '../../atoms';
 
-const PageHeader = ({label, backButton}) => {
+const PageHeader = ({label, backButton, onPress}) => {
   return (
     <View style={styles.container}>
-      {backButton && <BackButton style={styles.backButton} />}
+      {backButton && (
+        <Button type="icon-only" icon="icon-back" onPress={onPress} />
+      )}
+
       <Text style={styles.label}>{label}</Text>
     </View>
   );
@@ -25,8 +28,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
     fontSize: 22,
     color: '#020202',
-  },
-  backButton: {
-    marginRight: 26,
+    marginLeft: 26,
   },
 });
