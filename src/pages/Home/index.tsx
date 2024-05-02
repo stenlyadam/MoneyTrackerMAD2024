@@ -2,7 +2,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Button, Gap, PageHeader} from '../../components';
 
-const Home = () => {
+const Home = ({navigation}) => {
   return (
     <View style={styles.pageContainer}>
       <PageHeader type="withPhoto" />
@@ -19,9 +19,19 @@ const Home = () => {
           <Text style={styles.subTotal}>Rp. 6.000.000</Text>
         </View>
         <Text style={styles.subTitle}>Add Transaction</Text>
-        <Button label="Cash On Hand" />
+        <Button
+          label="Cash On Hand"
+          onPress={() =>
+            navigation.navigate('AddTransaction', {title: 'Cash On Hand'})
+          }
+        />
         <Gap height={10} />
-        <Button label="Cash On Bank" />
+        <Button
+          label="Cash On Bank"
+          onPress={() =>
+            navigation.navigate('AddTransaction', {title: 'Cash On Bank'})
+          }
+        />
       </View>
     </View>
   );
@@ -43,7 +53,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
     color: '#000000',
     fontSize: 16,
-    marginTop: 12,
+    marginVertical: 12,
   },
   totalBalance: {
     fontFamily: 'Poppins-SemiBold',
