@@ -11,6 +11,8 @@ import {Button, Gap, PageHeader, TextInput} from '../../components';
 import {NullPhoto} from '../../assets/images';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showMessage} from 'react-native-flash-message';
+import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
+import {getDatabase, ref, set} from 'firebase/database';
 
 const SignUp = ({navigation}) => {
   const [photo, setPhoto] = useState(NullPhoto);
@@ -42,13 +44,37 @@ const SignUp = ({navigation}) => {
   };
 
   const onSubmit = () => {
-    const dataUser = {
-      fullName: fullName,
-      email: email,
-      password: password,
-      photo: photoBase64,
-    };
-    console.log(dataUser);
+    const auth = getAuth();
+    const db = getDatabase();
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        // Signed up
+        const user = userCredential.user;
+        const dataUser = {
+          uid: user.uid,
+          fullName: fullName,
+          email: email,
+          photo: photoBase64,
+        };
+        //Insert to database
+        set(ref(db, 'users/' + dataUser.uid), dataUser);
+
+        showMessage({
+          message: 'Pendaftaran user berhasil',
+          type: 'success',
+        });
+        navigation.navigate('SignIn');
+      })
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        showMessage({
+          message: errorMessage,
+          type: 'danger',
+        });
+        // ..
+      });
   };
 
   return (
