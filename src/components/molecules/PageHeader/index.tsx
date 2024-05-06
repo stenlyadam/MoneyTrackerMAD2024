@@ -3,15 +3,22 @@ import React from 'react';
 import {Button} from '../../atoms';
 import {DummyPhoto} from '../../../assets/images';
 
-const PageHeader = ({label, backButton, onPress, type}) => {
+const PageHeader = ({
+  label,
+  backButton,
+  onPress,
+  type,
+  source = DummyPhoto,
+  userName,
+}) => {
   if (type === 'withPhoto') {
     return (
       <View style={styles.containerWithPhoto}>
         <View>
           <Text style={styles.appTitle}>Money Tracker</Text>
-          <Text style={styles.appSubTitle}>Track Your Money</Text>
+          <Text style={styles.appSubTitle}>Welcome, {userName}</Text>
         </View>
-        <Image source={DummyPhoto} />
+        <Image source={source} style={styles.photo} />
       </View>
     );
   }
@@ -58,5 +65,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Light',
     fontSize: 14,
     color: '#8D92A3',
+  },
+  photo: {
+    height: 50,
+    width: 50,
+    borderRadius: 5,
   },
 });

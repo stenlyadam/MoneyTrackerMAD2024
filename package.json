@@ -7,7 +7,7 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "emulator": "emulator -avd Nexus_S_API_33",
+    "emulator": "emulator -avd Pixel_2_XL_API_34",
     "test": "jest"
   },
   "dependencies": {

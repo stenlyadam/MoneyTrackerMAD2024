@@ -57,9 +57,14 @@ const SignUp = ({navigation}) => {
           email: email,
           photo: photoBase64,
         };
+        const balance = {
+          total: 0,
+          cashOnHand: 0,
+          cashOnBank: 0,
+        };
         //Insert to database
         set(ref(db, 'users/' + dataUser.uid), dataUser);
-
+        set(ref(db, 'users/' + dataUser.uid + '/balance'), balance);
         showMessage({
           message: 'Pendaftaran user berhasil',
           type: 'success',

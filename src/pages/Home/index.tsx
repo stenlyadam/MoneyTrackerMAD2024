@@ -1,22 +1,45 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Gap, PageHeader} from '../../components';
+import {getDatabase, ref, child, get, onValue} from 'firebase/database';
 
-const Home = ({navigation}) => {
+const Home = ({navigation, route}) => {
+  const [user, setUser] = useState({});
+  const [totalBalance, setTotalBalance] = useState(0);
+  const [cashOnHand, setCashOnHand] = useState(0);
+  const [cashOnBank, setCashOnBank] = useState(0);
+
+  const {uid} = route.params;
+  const db = getDatabase();
+  useEffect(() => {
+    const userRef = ref(db, 'users/' + uid);
+    onValue(userRef, snapshot => {
+      const data = snapshot.val();
+      setUser(data);
+      setTotalBalance(data.balance.total);
+      setCashOnHand(data.balance.cashOnHand);
+      setCashOnBank(data.balance.cashOnBank);
+    });
+  }, []);
+
   return (
     <View style={styles.pageContainer}>
-      <PageHeader type="withPhoto" />
+      <PageHeader
+        type="withPhoto"
+        source={{uri: user.photo}}
+        userName={user.fullName}
+      />
       <View style={styles.contentWrapper}>
         <Text style={styles.subTitle}>Your Balance</Text>
-        <Text style={styles.totalBalance}>Rp. 10.000.000</Text>
+        <Text style={styles.totalBalance}>Rp. {totalBalance}</Text>
         <View style={styles.line} />
         <View style={styles.subTotalWrapper}>
           <Text style={styles.subTotal}>Cash On Hand</Text>
-          <Text style={styles.subTotal}>Rp. 4.000.000</Text>
+          <Text style={styles.subTotal}>Rp. {cashOnHand}</Text>
         </View>
         <View style={styles.subTotalWrapper}>
           <Text style={styles.subTotal}>Cash On Bank</Text>
-          <Text style={styles.subTotal}>Rp. 6.000.000</Text>
+          <Text style={styles.subTotal}>Rp. {cashOnBank}</Text>
         </View>
         <Text style={styles.subTitle}>Add Transaction</Text>
         <Button
