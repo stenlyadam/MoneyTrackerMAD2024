@@ -8,8 +8,12 @@ const TransactionCard = ({date, desc, price, type}) => {
         <Text style={styles.textDate}>{date}</Text>
         <Text style={styles.textDescription}>{desc}</Text>
       </View>
-      {type === 'debit' && <Text style={styles.textPriceDebit}>{price}</Text>}
-      {type === 'credit' && <Text style={styles.textPriceCredit}>{price}</Text>}
+      {type === 'Kredit' && (
+        <Text style={styles.textPriceDebit}>Rp. -{price}</Text>
+      )}
+      {type === 'Debit' && (
+        <Text style={styles.textPriceCredit}>Rp. {price}</Text>
+      )}
     </View>
   );
 };

@@ -45,14 +45,20 @@ const Home = ({navigation, route}) => {
         <Button
           label="Cash On Hand"
           onPress={() =>
-            navigation.navigate('AddTransaction', {title: 'Cash On Hand'})
+            navigation.navigate('AddTransaction', {
+              title: 'Cash On Hand',
+              uid: uid,
+            })
           }
         />
         <Gap height={10} />
         <Button
           label="Cash On Bank"
           onPress={() =>
-            navigation.navigate('AddTransaction', {title: 'Cash On Bank'})
+            navigation.navigate('AddTransaction', {
+              title: 'Cash On Bank',
+              uid: uid,
+            })
           }
         />
       </View>
