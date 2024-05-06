@@ -1,8 +1,30 @@
 import {StyleSheet, View, ScrollView} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, Gap, PageHeader, TextInput} from '../../components';
+import {getAuth, signInWithEmailAndPassword} from 'firebase/auth';
+import {showMessage} from 'react-native-flash-message';
 
 const SignIn = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const onSubmit = () => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        // Signed in
+        const user = userCredential.user;
+        navigation.navigate('Home', {uid: user.uid});
+      })
+      .catch(error => {
+        const errorMessage = error.message;
+        showMessage({
+          message: errorMessage,
+          type: 'danger',
+        });
+      });
+  };
+
   return (
     <ScrollView style={styles.container}>
       <PageHeader label="Sign In" backButton={false} />
@@ -12,11 +34,20 @@ const SignIn = ({navigation}) => {
         <TextInput
           label="Email Address"
           placeholder="Type your email address"
+          value={email}
+          onChangeText={value => setEmail(value)}
         />
         <Gap height={16} />
-        <TextInput label="Password" placeholder="Type your password" />
+        <TextInput
+          label="Password"
+          placeholder="Type your password"
+          value={password}
+          onChangeText={value => setPassword(value)}
+          secureTextEntry={true}
+        />
+
         <Gap height={24} />
-        <Button label="Sign In" onPress={() => navigation.navigate('Home')} />
+        <Button label="Sign In" onPress={onSubmit} />
         <Gap height={12} />
         <Button
           label="Add New Account"
