@@ -6,7 +6,7 @@ import {Header, TextInput} from '../../components/molecules';
 const SignIn = () => {
   return (
     <View>
-      <Header />
+      <Header title="Sign In" />
       <TextInput />
       <TextInput />
       <Button />
