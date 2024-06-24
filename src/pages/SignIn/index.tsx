@@ -5,16 +5,30 @@ import {Header, TextInput} from '../../components/molecules';
 
 const SignIn = () => {
   return (
-    <View>
+    <View style={styles.pageContainer}>
       <Header title="Sign In" />
-      <TextInput />
-      <TextInput />
-      <Button />
-      <Button />
+      <View style={styles.contentContainer}>
+        <TextInput
+          label="Email Address"
+          placeholder="Type your email address"
+        />
+        <TextInput label="Password" placeholder="Type your password" />
+        <Button />
+        <Button />
+      </View>
     </View>
   );
 };
 
 export default SignIn;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  pageContainer: {
+    flex: 1,
+  },
+  contentContainer: {
+    backgroundColor: '#FFFFFF',
+    marginTop: 24,
+    flex: 1,
+  },
+});
