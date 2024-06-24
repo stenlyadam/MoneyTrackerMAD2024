@@ -13,8 +13,12 @@ const SignIn = () => {
           placeholder="Type your email address"
         />
         <TextInput label="Password" placeholder="Type your password" />
-        <Button />
-        <Button />
+        <Button label="Sign In" />
+        <Button
+          label="Create New Account"
+          color="#8D92A3"
+          textColor="#FFFFFF"
+        />
       </View>
     </View>
   );
