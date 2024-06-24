@@ -3,7 +3,7 @@ import React from 'react';
 
 const Button = ({label, color = '#02CF8E', textColor = '#020202'}) => {
   return (
-    <TouchableOpacity style={styles.button(color)}>
+    <TouchableOpacity style={styles.button(color)} activeOpacity={0.5}>
       <Text style={styles.label(textColor)}>{label}</Text>
     </TouchableOpacity>
   );
