@@ -1,12 +1,12 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import Logo from '../../assets/icon/Logo.svg';
+import {Logo} from '../../assets/icons';
 
 const SplashScreen = () => {
   return (
     <View style={styles.container}>
       <Logo />
-      <Text style={styles.text}>Money Tracker</Text>
+      <Text style={styles.title}>Money Tracker</Text>
     </View>
   );
 };
@@ -17,10 +17,10 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#02CF8E',
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
   },
-  text: {
+  title: {
     fontSize: 32,
     fontFamily: 'Poppins-Medium',
   },
