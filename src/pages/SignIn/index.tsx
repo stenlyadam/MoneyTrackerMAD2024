@@ -1,10 +1,16 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {StyleSheet, View} from 'react-native';
+import {Button} from '../../components/atoms';
+import {Header, TextInput} from '../../components/molecules';
 
 const SignIn = () => {
   return (
     <View>
-      <Text>SignIn</Text>
+      <Header />
+      <TextInput />
+      <TextInput />
+      <Button />
+      <Button />
     </View>
   );
 };
