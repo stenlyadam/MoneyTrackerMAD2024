@@ -7,7 +7,7 @@ import {NullPhoto} from '../../assets/icons';
 const SignUp = () => {
   return (
     <View style={styles.pageContainer}>
-      <Header title="Sign Up" />
+      <Header title="Sign Up" backButton={true} />
       <View style={styles.contentContainer}>
         <View style={styles.profileContainer}>
           <View style={styles.profileWrapper}>
