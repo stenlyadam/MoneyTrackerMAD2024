@@ -57,16 +57,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  profileButton: {
-    height: 90,
-    width: 90,
-  },
   avatar: {
-    backgroundColor: 'grey',
     height: 90,
     width: 90,
-    borderRadius: 90 / 2,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
