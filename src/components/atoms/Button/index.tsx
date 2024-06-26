@@ -1,7 +1,22 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
+import {ArrowBack} from '../../../assets/icons';
 
-const Button = ({label, color = '#02CF8E', textColor = '#020202', onPress}) => {
+const Button = ({
+  label,
+  color = '#02CF8E',
+  textColor = '#020202',
+  onPress,
+  type,
+  icon,
+}) => {
+  if (type === 'icon-only') {
+    return (
+      <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
+        {icon === 'icon-back' && <ArrowBack />}
+      </TouchableOpacity>
+    );
+  }
   return (
     <TouchableOpacity
       style={styles.button(color)}
