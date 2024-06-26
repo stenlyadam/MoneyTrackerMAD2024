@@ -5,7 +5,7 @@ import {Header, TextInput, TransactionCard} from '../../components/molecules';
 
 const AddTransaction = ({navigation}) => {
   return (
-    <View style={styles.pageContainer} showsVerticalScrollIndicator={false}>
+    <View style={styles.pageContainer}>
       <Header
         title="Add Transaction"
         backButton
