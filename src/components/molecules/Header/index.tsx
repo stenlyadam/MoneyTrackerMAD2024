@@ -2,11 +2,14 @@ import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {ArrowBack} from '../../../assets/icons';
 
-const Header = ({title, backButton}) => {
+const Header = ({title, backButton, onPress}) => {
   return (
     <View style={styles.container}>
       {backButton && (
-        <TouchableOpacity activeOpacity={0.5} style={styles.buttonBack}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.buttonBack}
+          onPress={onPress}>
           <ArrowBack />
         </TouchableOpacity>
       )}
