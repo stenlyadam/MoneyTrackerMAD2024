@@ -5,6 +5,7 @@ import SignUp from './src/pages/SignUp';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './src/pages/HomePage';
+import AddTransaction from './src/pages/AddTransaction';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,11 @@ const App = () => {
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="AddTransaction"
+          component={AddTransaction}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
