@@ -11,6 +11,7 @@ import {Header, TextInput} from '../../components/molecules';
 import {Button, Gap} from '../../components/atoms';
 import {NullPhoto} from '../../assets/icons';
 import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
+import {showMessage} from 'react-native-flash-message';
 
 const SignUp = ({navigation}) => {
   const [fullName, setFullName] = useState('');
@@ -31,12 +32,21 @@ const SignUp = ({navigation}) => {
         // Signed up
         const user = userCredential.user;
         console.log(user);
+        showMessage({
+          message: 'Registrasi berhasil',
+          type: 'success',
+        });
+        navigation.navigate('SignIn');
         // ...
       })
       .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
         // ..
+        showMessage({
+          message: error.message,
+          type: 'danger',
+        });
       });
   };
 
@@ -71,6 +81,7 @@ const SignUp = ({navigation}) => {
         <TextInput
           label="Password"
           placeholder="Type your password"
+          secureTextEntry={true}
           onChangeText={value => setPassword(value)}
         />
         <Gap height={24} />
