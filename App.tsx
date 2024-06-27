@@ -6,6 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './src/pages/HomePage';
 import AddTransaction from './src/pages/AddTransaction';
+import './src/config/Firebase';
 
 const Stack = createNativeStackNavigator();
 

@@ -1,12 +1,47 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ScrollView,
+} from 'react-native';
+import React, {useState, useEffect} from 'react';
 import {Header, TextInput} from '../../components/molecules';
 import {Button, Gap} from '../../components/atoms';
 import {NullPhoto} from '../../assets/icons';
+import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 
 const SignUp = ({navigation}) => {
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const onSubmit = () => {
+    const data = {
+      fullName: fullName,
+      email: email,
+      password: password,
+    };
+    // console.log(data);
+
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        // Signed up
+        const user = userCredential.user;
+        console.log(user);
+        // ...
+      })
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+  };
+
   return (
-    <View style={styles.pageContainer}>
+    <ScrollView style={styles.pageContainer}>
       <Header
         title="Sign Up"
         backButton={true}
@@ -21,21 +56,27 @@ const SignUp = ({navigation}) => {
           </View>
         </View>
         <Gap height={24} />
-        <TextInput label="Full Name" placeholder="Type your full name" />
+        <TextInput
+          label="Full Name"
+          placeholder="Type your full name"
+          onChangeText={value => setFullName(value)}
+        />
         <Gap height={16} />
         <TextInput
           label="Email Address"
           placeholder="Type your email address"
+          onChangeText={value => setEmail(value)}
         />
         <Gap height={16} />
-        <TextInput label="Password" placeholder="Type your password" />
-        <Gap height={24} />
-        <Button
-          label="Continue"
-          onPress={() => navigation.navigate('SignIn')}
+        <TextInput
+          label="Password"
+          placeholder="Type your password"
+          onChangeText={value => setPassword(value)}
         />
+        <Gap height={24} />
+        <Button label="Continue" onPress={onSubmit} />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
