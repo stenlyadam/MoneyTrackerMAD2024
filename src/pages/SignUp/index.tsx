@@ -12,11 +12,13 @@ import {Button, Gap} from '../../components/atoms';
 import {NullPhoto} from '../../assets/icons';
 import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 import {showMessage} from 'react-native-flash-message';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const SignUp = ({navigation}) => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [photo, setPhoto] = useState(NullPhoto);
 
   const onSubmit = () => {
     const data = {
@@ -50,6 +52,27 @@ const SignUp = ({navigation}) => {
       });
   };
 
+  const getImage = async () => {
+    const result = await launchImageLibrary({
+      maxHeight: 100,
+      maxWidth: 100,
+      quality: 0.5,
+      includeBase64: true,
+    });
+    if (result.didCancel) {
+      showMessage({
+        message: 'Pilih foto dibatalkan',
+        type: 'danger',
+      });
+      setPhoto(NullPhoto);
+    } else {
+      const assets = result.assets[0];
+      const base64 = `data:${assets.type};base64, ${assets.base64}`;
+      const source = {uri: base64};
+      setPhoto(source);
+    }
+  };
+
   return (
     <ScrollView style={styles.pageContainer}>
       <Header
@@ -60,8 +83,8 @@ const SignUp = ({navigation}) => {
       <View style={styles.contentContainer}>
         <View style={styles.profileContainer}>
           <View style={styles.profileWrapper}>
-            <TouchableOpacity activeOpacity={0.5}>
-              <Image source={NullPhoto} style={styles.avatar} />
+            <TouchableOpacity activeOpacity={0.5} onPress={getImage}>
+              <Image source={photo} style={styles.avatar} />
             </TouchableOpacity>
           </View>
         </View>
@@ -119,5 +142,6 @@ const styles = StyleSheet.create({
   avatar: {
     height: 90,
     width: 90,
+    borderRadius: 90 / 2,
   },
 });
