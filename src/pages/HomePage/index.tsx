@@ -1,17 +1,30 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {Button, Gap} from '../../components/atoms';
 import {DummyPhoto} from '../../assets/icons';
+import {getDatabase, ref, onValue} from 'firebase/database';
 
-const HomePage = ({navigation}) => {
+const HomePage = ({navigation, route}) => {
+  const {uid} = route.params;
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const db = getDatabase();
+    const userRef = ref(db, 'users/' + uid);
+    onValue(userRef, snapshot => {
+      const data = snapshot.val();
+      setUser(data);
+    });
+  }, []);
+
   return (
     <View style={styles.pageContainer}>
       <View style={styles.containerWithPhoto}>
         <View>
           <Text style={styles.appTitle}>Money Tracker</Text>
-          <Text style={styles.appSubTitle}>Hi, John Doe</Text>
+          <Text style={styles.appSubTitle}>Hi, {user.fullName}</Text>
         </View>
-        <Image source={DummyPhoto} style={styles.avatar} />
+        <Image source={{uri: user.photo}} style={styles.avatar} />
       </View>
       <View style={styles.contentWrapper}>
         <Text style={styles.subTitle}>Your Balance</Text>
