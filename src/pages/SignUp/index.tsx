@@ -13,31 +13,34 @@ import {NullPhoto} from '../../assets/icons';
 import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 import {showMessage} from 'react-native-flash-message';
 import {launchImageLibrary} from 'react-native-image-picker';
+import {getDatabase, ref, set} from 'firebase/database';
 
 const SignUp = ({navigation}) => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [photo, setPhoto] = useState(NullPhoto);
+  const [photoBase64, setPhotoBase64] = useState('');
 
   const onSubmit = () => {
-    const data = {
-      fullName: fullName,
-      email: email,
-      password: password,
-    };
-    // console.log(data);
-
     const auth = getAuth();
+    const db = getDatabase();
     createUserWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
         // Signed up
         const user = userCredential.user;
-        console.log(user);
         showMessage({
           message: 'Registrasi berhasil',
           type: 'success',
         });
+        //Simpan ke database
+        const data = {
+          uid: user.uid,
+          fullName: fullName,
+          email: email,
+          photo: photoBase64,
+        };
+        set(ref(db, 'users/' + data.uid), data);
         navigation.navigate('SignIn');
         // ...
       })
@@ -70,6 +73,7 @@ const SignUp = ({navigation}) => {
       const base64 = `data:${assets.type};base64, ${assets.base64}`;
       const source = {uri: base64};
       setPhoto(source);
+      setPhotoBase64(base64);
     }
   };
 
